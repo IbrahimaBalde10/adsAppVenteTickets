@@ -1,7 +1,5 @@
 <!-- src/views/pages/UserTable.vue -->
 <script setup>
-import VerticalNavLink from '@layouts/components/VerticalNavLink.vue'
-
 import { onMounted, computed } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
@@ -13,11 +11,7 @@ onMounted(() => {
   store.dispatch('users/fetchUsers');
 });
 
-const allUsers = computed(() => store.getters['users/allUsers']);
-
-const showUser = (userId) => {
-  router.push({ name: 'user-show', params: { id: userId } });
-};
+const allUsers = computed(() => store.getters['users/allUsers'].filter(user => user.role === 'Client'));
 
 const updateUser = (userId) => {
   router.push({ name: 'user-edit', params: { id: userId } });
@@ -36,14 +30,14 @@ const deleteUser = async (userId) => {
 <template>
   <VRow>
     <VCol cols="12">
-      <VCard title="User List">
+      <VCard title="Liste des clients">
         <VCardText>
           <VTable>
             <thead>
               <tr>
                 <th>ID</th>
                 <th>Nom</th>
-                <th>Prenom</th>
+                <th>Prénom</th>
                 <th>Tel</th>
                 <th>Role</th>
                 <th>Email</th>
@@ -59,7 +53,6 @@ const deleteUser = async (userId) => {
                 <td>{{ user.role }}</td>
                 <td>{{ user.email }}</td>
                 <td>
-                  <!-- <VBtn @click="showUser(user.id)" color="primary" small>Show</VBtn> -->
                   <VIcon @click="updateUser(user.id)" class="ms-2" color="warning" small>mdi-pencil</VIcon>
                   <VIcon @click="deleteUser(user.id)" color="error" small>mdi-delete</VIcon>
                 </td>
@@ -70,14 +63,10 @@ const deleteUser = async (userId) => {
       </VCard>
     </VCol>
   </VRow>
-  
-   <VerticalNavLink
-   color="sucess"
-        :item="{
-          title: 'Add User',
-          icon: 'bx-user-plus',
-          to: '/addUser',
-        }"
-      />
 </template>
- 
+
+<style scoped>
+.v-icon {
+  cursor: pointer;
+}
+</style>

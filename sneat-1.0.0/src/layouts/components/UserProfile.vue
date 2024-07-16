@@ -1,6 +1,6 @@
 <script setup>
-import avatar1 from '@images/avatars/avatar-1.png'
-
+// myImages
+import userAvatar from '@images/myImages/ib.jpg'
 // store pour logout
 import { useStore } from 'vuex';
 import { computed } from 'vue';
@@ -14,6 +14,7 @@ const user = computed(() => store.getters.getUser);
 const handleLogout = () => {
   store.dispatch('logout');
 }
+
 </script>
 
 <template>
@@ -30,7 +31,7 @@ const handleLogout = () => {
       color="primary"
       variant="tonal"
     >
-      <VImg :src="avatar1" />
+      <VImg :src="userAvatar" />
 
       <!-- SECTION Menu -->
       <VMenu
@@ -55,34 +56,34 @@ const handleLogout = () => {
                     color="primary"
                     variant="tonal"
                   >
-                    <VImg :src="avatar1" />
+                    <VImg :src="userAvatar" />
                   </VAvatar>
                 </VBadge>
               </VListItemAction>
             </template>
 
             <VListItemTitle class="font-weight-semibold">
-              John Doe
+            {{user.nom }} {{user.prenom}}
             </VListItemTitle>
-            <VListItemSubtitle>Admin</VListItemSubtitle>
+            <VListItemSubtitle>{{user.role}}</VListItemSubtitle>
           </VListItem>
           <VDivider class="my-2" />
 
           <!-- 👉 Profile -->
-          <VListItem link>
-            <template #prepend>
-              <VIcon
+          <VListItem :to="{ name: 'account-settings' }">
+           <!-- <VListItem > -->
+            <template  #prepend>
+              <VIcon 
                 class="me-2"
                 icon="bx-user"
                 size="22"
               />
             </template>
-
             <VListItemTitle>Profile</VListItemTitle>
           </VListItem>
-
+        
           <!-- 👉 Settings -->
-          <VListItem link>
+          <!-- <VListItem link>
             <template #prepend>
               <VIcon
                 class="me-2"
@@ -92,10 +93,10 @@ const handleLogout = () => {
             </template>
 
             <VListItemTitle>Settings</VListItemTitle>
-          </VListItem>
+          </VListItem> -->
 
           <!-- 👉 Pricing -->
-          <VListItem link>
+          <!-- <VListItem link>
             <template #prepend>
               <VIcon
                 class="me-2"
@@ -105,10 +106,10 @@ const handleLogout = () => {
             </template>
 
             <VListItemTitle>Pricing</VListItemTitle>
-          </VListItem>
+          </VListItem> -->
 
           <!-- 👉 FAQ -->
-          <VListItem link>
+          <!-- <VListItem link>
             <template #prepend>
               <VIcon
                 class="me-2"
@@ -118,7 +119,7 @@ const handleLogout = () => {
             </template>
 
             <VListItemTitle>FAQ</VListItemTitle>
-          </VListItem>
+          </VListItem> -->
 
           <!-- Divider -->
           <VDivider class="my-2" />

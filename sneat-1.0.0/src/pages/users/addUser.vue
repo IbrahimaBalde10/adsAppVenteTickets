@@ -3,6 +3,8 @@
 import { ref } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
+import VerticalNavLink from '@layouts/components/VerticalNavLink.vue'
+
 
 const store = useStore();
 const router = useRouter();
@@ -55,6 +57,22 @@ const addUser = async () => {
       <button type="submit" class="submit-button">Add User</button>
     </form>
   </div>
+   <VerticalNavLink
+   color="sucess"
+        :item="{
+          title: 'Annuler',
+          icon: 'bx-user-plus',
+          to: '/userManagement',
+        }"
+      />
+ <VerticalNavLink
+   color="sucess"
+        :item="{
+          title: 'Dashboard',
+          icon: 'bx-user-plus',
+          to: '/',
+        }"
+      />
 </template>
 
 <style scoped>

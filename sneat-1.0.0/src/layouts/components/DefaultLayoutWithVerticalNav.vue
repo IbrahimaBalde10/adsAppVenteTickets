@@ -6,6 +6,7 @@ import upgradeBannerLight from '@images/pro/upgrade-banner-light.png'
 import VerticalNavLayout from '@layouts/components/VerticalNavLayout.vue'
 import VerticalNavLink from '@layouts/components/VerticalNavLink.vue'
 
+
 // Components
 import Footer from '@/layouts/components/Footer.vue'
 import NavbarThemeSwitcher from '@/layouts/components/NavbarThemeSwitcher.vue'
@@ -16,6 +17,16 @@ const vuetifyTheme = useTheme()
 const upgradeBanner = computed(() => {
   return vuetifyTheme.global.name.value === 'light' ? upgradeBannerLight : upgradeBannerDark
 })
+
+// etat de user
+import { useStore } from 'vuex';
+import { computed } from 'vue';
+
+const store = useStore();
+
+// Utilisation des getters
+const isAuthenticated = computed(() => store.getters.isAuthenticated);
+const user = computed(() => store.getters.getUser);
 </script>
 
 <template>
@@ -57,7 +68,7 @@ const upgradeBanner = computed(() => {
         >
           <VIcon icon="bxl-github" />
         </IconBtn>
-
+        
         <IconBtn class="me-2">
           <VIcon icon="bx-bell" />
         </IconBtn>
@@ -90,14 +101,14 @@ const upgradeBanner = computed(() => {
           heading: 'Pages',
         }"
       />
-      <VerticalNavLink
+      <VerticalNavLink v-if="!isAuthenticated"
         :item="{
           title: 'Login',
           icon: 'bx-log-in',
           to: '/login',
         }"
       />
-      <VerticalNavLink
+      <VerticalNavLink v-if="!isAuthenticated"
         :item="{
           title: 'Register',
           icon: 'bx-user-plus',
@@ -113,19 +124,19 @@ const upgradeBanner = computed(() => {
         }"
       />
       <!-- fin  get all users-->
-      <!-- add users -->
+      <!-- get all subscriptio -->
         <VerticalNavLink
         :item="{
-          title: 'Add user',
+          title: 'Types Subscription',
           icon: 'bx-user-plus',
-          to: '/addUser',
+          to: '/typeSubscriptionsManagement',
         }"
       />
       <!-- fin  add users-->
        <!-- get all TypesTickets -->
         <VerticalNavLink
         :item="{
-          title: 'TypesTickets',
+          title: 'Types de Tickets',
           icon: 'bx-user-plus',
           to: '/typeTicketsManagement',
         }"
@@ -154,13 +165,6 @@ const upgradeBanner = computed(() => {
       />
       <VerticalNavLink
         :item="{
-          title: 'Icons',
-          icon: 'bx-show',
-          to: '/icons',
-        }"
-      />
-      <VerticalNavLink
-        :item="{
           title: 'Cards',
           icon: 'bx-credit-card',
           to: '/cards',
@@ -180,24 +184,6 @@ const upgradeBanner = computed(() => {
           to: '/form-layouts',
         }"
       />
-    </template>
-
-    <template #after-vertical-nav-items>
-      <!-- 👉 illustration -->
-      <a
-        href="https://themeselection.com/item/sneat-vuetify-vuejs-admin-template"
-        target="_blank"
-        rel="noopener noreferrer"
-        style="margin-left: 7px;"
-      >
-        <img
-          :src="upgradeBanner"
-          alt="upgrade-banner"
-          transition="scale-transition"
-          class="upgrade-banner mx-auto"
-          style="max-width: 230px;"
-        >
-      </a>
     </template>
 
     <!-- 👉 Pages -->

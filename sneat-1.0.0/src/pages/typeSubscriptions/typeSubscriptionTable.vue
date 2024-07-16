@@ -67,6 +67,8 @@ const deleteTypeSubscription = async (typeSubscriptionId) => {
       </VCard>
     </VCol>
   </VRow>
+ 
+ 
   <VerticalNavLink
     color="success"
     :item="{
@@ -75,12 +77,4 @@ const deleteTypeSubscription = async (typeSubscriptionId) => {
       to: '/addtypeSubscription',
     }"
   />
-  <VerticalNavLink
-    color="success"
-    :item="{
-      title: 'Dashboard',
-      icon: 'bx-typeSubscription-plus',
-      to: '/',
-    }"
-  />
-</template>
+ </template>

@@ -1,9 +1,13 @@
 import { createStore } from "vuex";
 import router from "../router/index.js";
 import axios from "../axios.js";
+
 import users from './modules/userModule.js'; // Importer le module des utilisateurs
 import typeTickets from './modules/typeTicketModule.js'; // Importer le module des utilisateurs
 import typeSubscriptions from './modules/typeSubscriptionModule.js'; // Importer le module des utilisateurs
+import transactions from './modules/transactionModule.js';
+import tickets from './modules/ticketModule.js';
+
 
 export default createStore({
   state: {
@@ -95,5 +99,7 @@ export default createStore({
     users, // Ajouter le module des utilisateurs
     typeTickets,
     typeSubscriptions,
+    transactions,
+    tickets,
   },
 });

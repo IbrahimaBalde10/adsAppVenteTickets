@@ -36,7 +36,7 @@ const deletetypeTicket = async (typeTicketId) => {
 <template>
   <VRow>
     <VCol cols="12">
-      <VCard title="typeTicket List">
+      <VCard title="Types de tickets">
         <VCardText>
           <VAlert v-if="errorMessage" type="error">
             {{ errorMessage }}
@@ -56,9 +56,8 @@ const deletetypeTicket = async (typeTicketId) => {
                 <td>{{ typeTicket.name }}</td>
                 <td>{{ typeTicket.price }}</td>
                 <td>
-                  <VBtn @click="showtypeTicket(typeTicket.id)" color="primary" small>Show</VBtn>
-                  <VBtn @click="updatetypeTicket(typeTicket.id)" color="warning" small>Update</VBtn>
-                  <VBtn @click="deletetypeTicket(typeTicket.id)" color="error" small>Delete</VBtn>
+                  <VIcon @click="updatetypeTicket(typeTicket.id)" class="ms-2" color="warning" small>mdi-pencil</VIcon>
+                  <VIcon @click="deletetypeTicket(typeTicket.id)" color="error" small>mdi-delete</VIcon>
                 </td>
               </tr>
             </tbody>
@@ -73,14 +72,6 @@ const deletetypeTicket = async (typeTicketId) => {
       title: 'Add typeTicket',
       icon: 'bx-typeTicket-plus',
       to: '/addtypeTicket',
-    }"
-  />
-  <VerticalNavLink
-    color="success"
-    :item="{
-      title: 'Dashboard',
-      icon: 'bx-typeTicket-plus',
-      to: '/',
     }"
   />
 </template>

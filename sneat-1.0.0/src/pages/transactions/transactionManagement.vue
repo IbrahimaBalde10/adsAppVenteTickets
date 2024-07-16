@@ -1,13 +1,12 @@
 <!-- src/views/pages/UserManagement.vue -->
 <script setup>
-import UserTable from './UserTable.vue';
-
+import TransactionsManagement from './transactionTable.vue';
 </script>
 
 <template>
   <VRow>
     <VCol cols="12">
-      <UserTable />
+      <TransactionsManagement />
     </VCol>
   </VRow>
 </template>

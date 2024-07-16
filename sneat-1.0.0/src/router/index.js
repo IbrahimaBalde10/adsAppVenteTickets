@@ -3,28 +3,24 @@ import { createRouter, createWebHistory } from 'vue-router'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    { path: '/', redirect: '/dashboard' },
+    { path: '/', redirect: '/dashboard' },     
     {
       path: '/',
       component: () => import('../layouts/default.vue'),
-      //  meta: { requiresAuth: true },
+      meta: { requiresAuth: true },
       children: [
         {
           path: 'dashboard',
           component: () => import('../pages/dashboard.vue'),
           meta: { requiresAuth: true }
         },
-        {
-          path: 'account-settings',
-          component: () => import('../pages/account-settings.vue'),
-        },
+        // {
+        //   path: 'account-settings',
+        //   component: () => import('../pages/account-settings.vue'),
+        // },
         {
           path: 'typography',
           component: () => import('../pages/typography.vue'),
-        },
-        {
-          path: 'icons',
-          component: () => import('../pages/icons.vue'),
         },
         {
           path: 'cards',
@@ -38,25 +34,11 @@ const router = createRouter({
           path: 'form-layouts',
           component: () => import('../pages/form-layouts.vue'),
         },
-      ],
-    },
-    {
-      path: '/',
-      component: () => import('../layouts/blank.vue'),
-      children: [
-        {
-          path: 'login',
-          component: () => import('../pages/login.vue'),
-          name: 'login' // Assurez-vous que le nom de route est 'login'
-        },
-        {
-          path: 'register',
-          component: () => import('../pages/register.vue'),
-        },
+      
       //  route Users
-        { 
+         { 
           path: 'userManagement',
-          component: () => import('../pages/users/UserManagement.vue'),
+          component: () => import('../pages/users/user.vue'),
           meta: { requiresAuth: true } ,
           name: 'userManagement'  
         },
@@ -78,7 +60,7 @@ const router = createRouter({
         //  lister
          { 
           path: 'typeTicketsManagement',
-          component: () => import('../pages/typeTickets/typeTicketsManagement.vue'),
+          component: () => import('../pages/typeTickets/ticket.vue'),
           meta: { requiresAuth: true } ,
           name: 'typeTicketsManagement' //addTypeTicket
         },
@@ -94,6 +76,12 @@ const router = createRouter({
           path: 'typeTicket/:id/edit',
           name: 'typeTicket-edit',
           component: () => import('../pages/typeTickets/typeTicketEdit.vue'), // Create this component
+        },
+        // my profile
+         {
+          path: 'account-settings',
+          component: () => import('../pages/users/account-settings.vue'),
+          name: 'account-settings'
         },
          // route Type de subscriptions
         //  lister
@@ -121,6 +109,30 @@ const router = createRouter({
           path: 'typeSubcription/:id/show',
           name: 'typeSubcription-show',
           component: () => import('../pages/typeSubscriptions/typeSubcriptionShow.vue'), // Create this component
+        },
+        // route transcation
+        //  lister
+         { 
+          path: 'transcationManagement',
+          component: () => import('../pages/transactions/transactionManagement.vue'),
+          meta: { requiresAuth: true } ,
+          name: 'transcation' //addTypeTicket
+        },
+      ],
+      
+    },
+    {
+      path: '/',
+      component: () => import('../layouts/blank.vue'),
+      children: [
+        {
+          path: 'login',
+          component: () => import('../pages/login.vue'),
+          name: 'login' // Assurez-vous que le nom de route est 'login'
+        },
+        {
+          path: 'register',
+          component: () => import('../pages/register.vue'),
         },
         {
           path: '/:pathMatch(.*)*',

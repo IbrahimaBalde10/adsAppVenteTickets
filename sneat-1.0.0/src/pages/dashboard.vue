@@ -1,4 +1,5 @@
 <script setup>
+// liste des composants affichés sur le dashboard
 import AnalyticsCongratulations from '@/views/dashboard/AnalyticsCongratulations.vue'
 import AnalyticsFinanceTabs from '@/views/dashboard/AnalyticsFinanceTab.vue'
 import AnalyticsOrderStatistics from '@/views/dashboard/AnalyticsOrderStatistics.vue'
@@ -6,11 +7,27 @@ import AnalyticsProfitReport from '@/views/dashboard/AnalyticsProfitReport.vue'
 import AnalyticsTotalRevenue from '@/views/dashboard/AnalyticsTotalRevenue.vue'
 import AnalyticsTransactions from '@/views/dashboard/AnalyticsTransactions.vue'
 
-// 👉 Images
-import chart from '@images/cards/chart-success.png'
-import card from '@images/cards/credit-card-primary.png'
-import paypal from '@images/cards/paypal-error.png'
-import wallet from '@images/cards/wallet-info.png'
+
+// myImages
+import userIcon from '@images/myImages/user.png'
+import transactionIcon from '@images/myImages/transaction.png'
+import ticketIcon from '@images/myImages/ticket.png'
+// utisation de store
+
+import { useStore } from 'vuex';
+const icon = 'bx-log-in';
+const store = useStore();
+onMounted(() => {
+  store.dispatch('users/fetchUsers');
+  store.dispatch('transactions/fetchTransactions');
+  store.dispatch('tickets/fetchTickets');
+});
+const userCount = computed(() => store.getters['users/userCount']); // Utilisation de computed pour réagir aux changements
+const transactionCount = computed(() => store.getters['transactions/transactionCount']); // Utilisation de computed pour réagir aux changements
+const ticketCount = computed(() => store.getters['tickets/ticketCount']); // Utilisation de computed pour réagir aux changements
+
+
+
 </script>
 
 <template>
@@ -19,7 +36,9 @@ import wallet from '@images/cards/wallet-info.png'
     <VCol
       cols="12"
       md="8"
-    >
+    >  
+    <!-- <p>Users: {{userCount}}</p>,  <p>Transactions: {{transactionCount}}</p> -->
+    <!-- <p>Tickets: {{ticketCount}}</p> -->
       <AnalyticsCongratulations />
     </VCol>
 
@@ -29,34 +48,24 @@ import wallet from '@images/cards/wallet-info.png'
     >
       <VRow>
         <!-- 👉 Profit -->
-        <VCol
-          cols="12"
-          md="6"
-        >
-          <CardStatisticsVertical
-            v-bind="{
-              title: 'Profit',
-              image: chart,
-              stats: '$12,628',
-              change: 72.80,
-            }"
-          />
-        </VCol>
-
-        <!-- 👉 Sales -->
-        <VCol
-          cols="12"
-          md="6"
-        >
-          <CardStatisticsVertical
-            v-bind="{
-              title: 'Sales',
-              image: wallet,
-              stats: '$4,679',
-              change: 28.42,
-            }"
-          />
-        </VCol>
+        <VCol cols="12" md="6">
+    <CardStatisticsVertical
+      :title="'Utilisateurs'"
+      :image="userIcon"
+      :change="userCount%100"
+      :stats="userCount"
+    />
+  </VCol>
+  <!-- 👉 Tickets -->
+  <VCol cols="12" md="6">
+    <CardStatisticsVertical
+      :title="'Tickets'"
+      :image="ticketIcon"
+      :change="ticketCount%100"
+      :stats="ticketCount"
+      
+    />
+  </VCol>
       </VRow>
     </VCol>
 
@@ -79,10 +88,7 @@ import wallet from '@images/cards/wallet-info.png'
     >
       <VRow>
         <!-- 👉 Payments -->
-        <VCol
-          cols="12"
-          sm="6"
-        >
+        <VCol  cols="12" sm="6">
           <CardStatisticsVertical
             v-bind=" {
               title: 'Payments',
@@ -93,21 +99,19 @@ import wallet from '@images/cards/wallet-info.png'
           />
         </VCol>
 
-        <!-- 👉 Revenue -->
-        <VCol
-          cols="12"
-          sm="6"
-        >
-          <CardStatisticsVertical
-            v-bind="{
-              title: 'Transactions',
-              image: card,
-              stats: '$14,857',
-              change: 28.14,
-            }"
-          />
-        </VCol>
-      </VRow>
+     
+  <!-- 👉 Transactions -->
+  <VCol cols="12" md="6">
+    <CardStatisticsVertical
+      :title="'Transactions'"
+      :image="transactionIcon"
+      :change="transactionCount%100"
+      :stats="transactionCount"
+      :to="{ name: 'transcation' }"
+    />
+  </VCol>
+ 
+</VRow>
 
       <VRow>
         <!-- 👉 Profit Report -->
@@ -140,7 +144,6 @@ import wallet from '@images/cards/wallet-info.png'
       <AnalyticsFinanceTabs />
     </VCol>
 
-    <!-- 👉 Transactions -->
     <VCol
       cols="12"
       md="4"
